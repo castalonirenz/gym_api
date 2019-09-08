@@ -14,17 +14,17 @@ class Auth extends Controller
         'username' => 'required',
         'password' => 'required'
         ]);
-      $user = Login::where('user_username', $request->input('username'))->first();
+      $user = Login::where(['user_username' => $request->input('username'), 
+        'user_pass' => $request->input('password')])->first();
 
        
         if($user !== null){
-            if (Hash::check($request->input('password'), $user->user_password)) {
             return $user;
-            }
+            
             
         }
         else{
-            return response()->json(['status' => 'credentials not found'], 401);
+            return response()->json(['status' => 'Invalid Credentials'], 401);
         }
        }
  
