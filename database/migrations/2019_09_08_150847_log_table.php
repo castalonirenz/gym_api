@@ -15,9 +15,9 @@ class LogTable extends Migration
     {
         Schema::create('log', function (Blueprint $table) {
             $table->bigIncrements('log_id');
-            $table->string('log_in');
-            $table->string('log_out');
-            $table->string('log_data');
+            $table->string('log_in')->nullable();
+            $table->string('log_out')->nullable();
+            $table->string('log_data')->nullable();
             $table->string('cust_id');
         });
     }
