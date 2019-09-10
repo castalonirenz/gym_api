@@ -10,7 +10,8 @@ class LogController extends Controller
         public function timeIn(Request $request){
             $this->validate($request, [
                 'customer_id' => 'required',
-                'time_in' => 'required'
+                'time_in' => 'required',
+                'log_date' => 'required'
                 ]);
                 // $user = Login::where(['user_username' => $request->input('username'), 
                 // 'user_pass' => $request->input('password')])->first();
@@ -18,8 +19,7 @@ class LogController extends Controller
                     ->insertGetid([
                         'cust_id' => $request->input('customer_id'), 
                         'log_in' => $request->input('time_in'),
-                        'log_out' => '',
-                        'log_data' => $request->input('log_data')
+                        'log_date' => $request->input('log_date')
                         ]);
 
                         if(empty($time)){    
@@ -44,28 +44,23 @@ class LogController extends Controller
                 'customer_id' => 'required',
                 'time_out' => 'required'
                 ]);
-                // $user = Login::where(['user_username' => $request->input('username'), 
-                // 'user_pass' => $request->input('password')])->first();
                 $time = DB::table('log')
-                    ->updateorInsert([
-                        'cust_id' => $request->input('customer_id'), 
-                        // 'log_in' => $request->input('time_in'),
-                        'log_out' => $request->input('time_out'),
-                        'log_data' => $request->input('log_data')
-                        ]);
-
-                        if(empty($time)){    
-                            return response()->json(['status' => 'Please try again'], 401);
+                    ->where(['cust_id' => $request->input('customer_id')])
+                    ->orderBy('log_in')
+                    ->limit(1)
+                    ->update(['log_out' => $request->input('time_out')]);
+                if(empty($time)){    
+                            return response()->json(['status' => $time], 401);
                          }
-                         else{
+                else{
                             $users = DB::table('log')
                             ->where(['cust_id' => $request->input('customer_id')])
-                            ->select('log_out', 'log_data')
+                            ->select('cust_id','log_in','log_out', 'log_date')
                             ->orderBy('log_out', 'desc')
                             ->limit(1)
                             ->get();
                             return response()->json(['status' => $users], 201);
-                         }
+                    }
                 
                        
 

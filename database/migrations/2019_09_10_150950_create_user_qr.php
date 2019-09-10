@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class LogTable extends Migration
+class CreateUserQr extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class LogTable extends Migration
      */
     public function up()
     {
-        Schema::create('log', function (Blueprint $table) {
-            $table->bigIncrements('log_id');
-            $table->string('log_in')->nullable();
-            $table->string('log_out')->nullable();
-            $table->string('log_date')->nullable();
-            $table->string('cust_id');
+        Schema::create('qr', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('value');
+            $table->date('date_created');
         });
     }
 
@@ -29,6 +27,6 @@ class LogTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('log');
+        Schema::dropIfExists('qr');
     }
 }
