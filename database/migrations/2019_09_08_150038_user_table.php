@@ -21,7 +21,7 @@ class UserTable extends Migration
             $table->string('user_fname');
             $table->string('user_lname');
             $table->string('security_id');
-            $table->string('user_SecAnser');
+            $table->string('user_SecAnswer');
         });
     }
 

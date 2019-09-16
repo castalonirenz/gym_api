@@ -19,7 +19,10 @@ class Auth extends Controller
 
        
         if($user !== null){
-            return $user;
+            return
+            response()
+            ->json(['status' => 'success', 
+                'data'=>$user]);
             
             
         }

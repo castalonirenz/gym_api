@@ -15,9 +15,8 @@ class QrTableSeeder extends Seeder
         //
         DB::table('qr')
             ->insert([
-            'id' => 1,
-            'value' =>'asdjasd',
-            'date_created' => 'asdasd',
+            'value' =>'asdjasds',
+            'date_created'=> '2007-07-04'
         ]);
     }
 }
