@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class user extends Seeder
+class UserTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -21,7 +21,6 @@ class user extends Seeder
             'user_lname'=> 'castaloni',
             'security_id'=> 'who',
             'user_SecAnswer'=>'something'
-            
         ]);
     }
 }

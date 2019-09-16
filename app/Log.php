@@ -8,5 +8,5 @@ class Log extends Model
 {
     //
     public $table ="log";
-    protected $fillable = [ 'log_data','cust_id'];
+    protected $fillable = [ 'log_date','cust_id'];
 }

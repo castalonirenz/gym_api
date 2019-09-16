@@ -14,8 +14,8 @@ class Auth extends Controller
         'username' => 'required',
         'password' => 'required'
         ]);
-      $user = Login::where(['user_username' => $request->input('username'), 
-        'user_pass' => $request->input('password')])->first();
+      $user = Login::where(['cust_username' => $request->input('username'), 
+        'cust_password' => $request->input('password')])->first();
 
        
         if($user !== null){

@@ -15,7 +15,11 @@ class LogController extends Controller
                 ]);
                 // $user = Login::where(['user_username' => $request->input('username'), 
                 // 'user_pass' => $request->input('password')])->first();
-                $time = DB::table('log')
+                $checkExist = DB::table('customer')
+                ->where(['cust_id' => $request->input('customer_id')])
+                ->first();
+                if($checkExist !== null){
+                            $time = DB::table('log')
                     ->insertGetid([
                         'cust_id' => $request->input('customer_id'), 
                         'log_in' => $request->input('time_in'),
@@ -28,12 +32,26 @@ class LogController extends Controller
                          else{
                             $users = DB::table('log')
                             ->where(['cust_id' => $request->input('customer_id')])
-                            ->select('log_in', 'log_data')
+                            ->select('log_in', 'log_date')
                             ->orderBy('log_in', 'desc')
                             ->limit(1)
                             ->get();
-                            return response()->json(['status' => $users], 201);
+                            return 
+                            response()
+                            ->json([
+                                'status' => 'success',
+                                'details'=>$users], 
+                                201);
                          }
+                
+                }
+                else if($checkExist === null){
+                   return
+                    response()->json([
+                    'error' => true,
+                    'message' => 'customer id doesnt exist']);
+                }
+                // ->json(['respon' => $checkExist]);
                 
                        
 
