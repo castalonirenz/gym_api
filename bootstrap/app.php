@@ -17,7 +17,9 @@ require_once __DIR__.'/../vendor/autoload.php';
 |
 */
 
-
+$app->middleware([
+    App\Http\Middleware\CorsMiddleware::class
+ ]);
 
 $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
