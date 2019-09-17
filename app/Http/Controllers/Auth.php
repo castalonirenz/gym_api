@@ -27,7 +27,7 @@ class Auth extends Controller
             
         }
         else{
-            return response()->json(['status' => 'Invalid Credentials'], 401);
+            return response()->json(['status' => 'Invalid Credentials']);
         }
        }
  

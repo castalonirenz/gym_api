@@ -27,7 +27,7 @@ class LogController extends Controller
                         ]);
 
                         if(empty($time)){    
-                            return response()->json(['status' => 'Please try again'], 401);
+                            return response()->json(['status' => 'Please try again']);
                          }
                          else{
                             $users = DB::table('log')
@@ -72,7 +72,7 @@ class LogController extends Controller
                             ->json([
                                 'status' => 'error',
                                 'message' => 'no time in'
-                            ], 401);
+                            ]);
                          }
                 else{
                             $users = DB::table('log')
