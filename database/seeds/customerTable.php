@@ -28,7 +28,8 @@ class customerTable extends Seeder
             'cust_expdate' => 'august 26, 2020',
             'cust_username' => 'gadong',
             'cust_password' => 'sample',
-            'cust_active' => 'yes'
+            'cust_active' => 'yes',
+            'cust_qr_code' => '1000001'
          ]);
     }
 }
