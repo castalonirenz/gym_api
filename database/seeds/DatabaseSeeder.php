@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call('UsersTableSeeder');
          $this->call('customerTable');
-         $this->call('QrTableSeeder');
+        //  $this->call('QrTableSeeder');
          $this->call('UserTableSeeder');
     }
 }

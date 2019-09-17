@@ -68,7 +68,11 @@ class LogController extends Controller
                     ->limit(1)
                     ->update(['log_out' => $request->input('time_out')]);
                 if(empty($time)){    
-                            return response()->json(['status' => $time], 401);
+                            return response()
+                            ->json([
+                                'status' => 'error',
+                                'message' => 'no time in'
+                            ], 401);
                          }
                 else{
                             $users = DB::table('log')
