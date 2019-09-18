@@ -19,7 +19,14 @@ class LogController extends Controller
                 ->where(['cust_id' => $request->input('customer_id')])
                 ->first();
                 if($checkExist !== null){
-                            $time = DB::table('log')
+
+                    $timeInToday = DB::table('log')
+                    ->where(['log_date' => $request->input('log_date')])
+                    ->first();
+                         
+                    if($timeInToday === null)
+                {    
+                    $time = DB::table('log')
                     ->insertGetid([
                         'cust_id' => $request->input('customer_id'), 
                         'log_in' => $request->input('time_in'),
@@ -33,7 +40,7 @@ class LogController extends Controller
                             $users = DB::table('log')
                             ->where(['cust_id' => $request->input('customer_id')])
                             ->select('log_in', 'log_date')
-                            ->orderBy('log_in', 'desc')
+                            ->orderBy('log_id', 'desc')
                             ->limit(1)
                             ->get();
                             return 
@@ -43,6 +50,15 @@ class LogController extends Controller
                                 'details'=>$users], 
                                 201);
                          }
+                }
+                else{
+                         return 
+                            response()
+                            ->json([
+                                'status' => 'you have already time in today',
+                                'details'=>$timeInToday], 
+                                201);
+                }
                 
                 }
                 else if($checkExist === null){
@@ -60,10 +76,14 @@ class LogController extends Controller
         public function timeOut(Request $request){
             $this->validate($request, [
                 'customer_id' => 'required',
-                'time_out' => 'required'
+                'time_out' => 'required',
+                'log_date' => 'required'
                 ]);
                 $time = DB::table('log')
-                    ->where(['cust_id' => $request->input('customer_id')])
+                    ->where([
+                        'cust_id' => $request->input('customer_id'),
+                        'log_date' => $request->input('log_date')
+                            ])
                     ->orderBy('log_in')
                     ->limit(1)
                     ->update(['log_out' => $request->input('time_out')]);
@@ -74,11 +94,11 @@ class LogController extends Controller
                                 'message' => 'no time in'
                             ]);
                          }
-                else{
+                    else{
                             $users = DB::table('log')
                             ->where(['cust_id' => $request->input('customer_id')])
                             ->select('cust_id','log_in','log_out', 'log_date')
-                            ->orderBy('log_out', 'desc')
+                            ->orderBy('log_id', 'desc')
                             ->limit(1)
                             ->get();
                             return response()->json(['status' => $users], 201);
@@ -86,5 +106,15 @@ class LogController extends Controller
                 
                        
 
+        }
+
+        public function showLog(Request $request){
+            $this->validate($request, [
+                'customer_id' => 'required',
+                ]);
+            $logs = DB::table('log')
+            ->where(['cust_id' => $request->input('customer_id')])
+            ->get();
+            return response()->json(['status' => $logs], 201);
         }
 }
