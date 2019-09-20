@@ -51,7 +51,8 @@ class Auth extends Controller
            {
                
                 $checkPassword = DB::table('customer')
-                                    ->where(['cust_password' => $request->input('password')])
+                                    ->where(['cust_password' => $request->input('password'),
+                                            'cust_username' => $request->input('username')])
                                     ->first();
 
                 // dd($checkPassword);
