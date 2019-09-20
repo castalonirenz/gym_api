@@ -51,12 +51,13 @@ class Auth extends Controller
            {
                
                 $checkPassword = DB::table('customer')
-                                    ->where(['cust_password' => $request->input('password'),
-                                            'cust_username' => $request->input('username')])
+                                    ->where(['cust_password' => $request->input('password')])
                                     ->first();
-
+                $checkUsername = DB::table('customer')
+                                    ->where(['cust_username' => $request->input('username')])
+                                    ->first();
                 // dd($checkPassword);
-                if($checkPassword !== null){
+                if($checkPassword !== null && $checkUsername !== null){
                        $checkNewPassword = DB::table('customer')
                                    ->where(['cust_password' => $newPass])
                                     ->first();
@@ -90,7 +91,7 @@ class Auth extends Controller
                                 response()
                                 ->json([
                                     'success' => false,
-                                    'message' => 'Wrong password!'
+                                    'message' => 'Check your username/password befure updating your new password!'
                                 ]);
                 }
            }
