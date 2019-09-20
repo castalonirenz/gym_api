@@ -66,7 +66,8 @@ class Auth extends Controller
                                     
                     $changePass = DB::table('customer')
                                          ->where(['cust_username' => $request->input('username')])
-                                        ->update(['cust_password' => $newPass]);
+                                        ->update(['cust_password' => $newPass,
+                                                  'first_time' => 1]);
                                 return
                                 response()
                                 ->json([
