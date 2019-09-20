@@ -29,7 +29,8 @@ class customerTable extends Seeder
             'cust_username' => 'gadong',
             'cust_password' => 'sample',
             'cust_active' => 'yes',
-            'cust_qr_code' => '1000001'
+            'cust_qr_code' => '1000001',
+            'first_time' => 0
          ]);
     }
 }

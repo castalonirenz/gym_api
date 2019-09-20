@@ -33,7 +33,7 @@ class Customer extends Migration
             $table->string('cust_password')->nullable();
             $table->string('cust_active')->nullable();
             $table->string('cust_qr_code')->nullable();
-            
+            $table->string('first_time')->nullable();
 
           
         });

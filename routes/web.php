@@ -20,4 +20,5 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('timeIn', 'LogController@timeIn');
     $router->post('timeOut', 'LogController@timeOut');
     $router->post('showLogs', 'LogController@showLog');
+    $router->post('changePass', 'Auth@changePassword');
   });
