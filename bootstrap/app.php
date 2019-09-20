@@ -39,6 +39,10 @@ $app->withEloquent();
 | your own bindings here if you like or you can make another file.
 |
 */
+$app->middleware([
+    App\Http\Middleware\CorsMiddleware::class 
+
+]);
 
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
@@ -49,7 +53,6 @@ $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
     App\Console\Kernel::class
 );
-
 /*
 |--------------------------------------------------------------------------
 | Register Middleware

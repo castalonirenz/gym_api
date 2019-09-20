@@ -19,4 +19,5 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('login', 'Auth@authenticate');
     $router->post('timeIn', 'LogController@timeIn');
     $router->post('timeOut', 'LogController@timeOut');
+    $router->post('showLogs', 'LogController@showLog');
   });
