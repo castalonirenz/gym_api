@@ -49,35 +49,53 @@ class Auth extends Controller
 
            if($newPass === $confirmPass)
            {
-               $user = DB::table('customer')
-                                ->where([
-                                    'cust_username' => $request->input('username'),
-                                    'cust_password' => $request->input('password')
-                                        ])
-                                ->update(['cust_password' => $request->input('new_password')]);
-                                // ->get();
-                               
-             if(!empty($user)){
-                    return
-                response()
-                ->json(['status' => 'success',
-                        'updated' => $user
-                        ]);
-               }
-                    return
-                response()
-                ->json(['status' => 'fail',
-                        'message' => 'check your username or password if correct'
-                        ]);
+               
+                $checkPassword = DB::table('customer')
+                                    ->where(['cust_password' => $request->input('password')])
+                                    ->first();
 
-                                
-              
+                // dd($checkPassword);
+                if($checkPassword !== null){
+                       $checkNewPassword = DB::table('customer')
+                                   ->where(['cust_password' => $newPass])
+                                    ->first();
+
+                                    // dd($checkNewPassword);
+                                    if($checkNewPassword === null){
+
+                                    
+                    $changePass = DB::table('customer')
+                                         ->where(['cust_username' => $request->input('username')])
+                                        ->update(['cust_password' => $newPass]);
+                                return
+                                response()
+                                ->json([
+                                    'success' => 'true',
+                                    'data' => 'successfully changed',
+                                ]);
+                                    }
+                                    else{
+                                return
+                                response()
+                                ->json([
+                                    'success' => 'false',
+                                    'message' => 'Cannot change password new password is same with the old one'
+                                ]);
+                                    }
+                }
+                else{
+                                 return
+                                response()
+                                ->json([
+                                    'success' => 'false',
+                                    'message' => 'Wrong password!'
+                                ]);
+                }
            }
            else{
-               return
+               return 
                response()
-               ->json(['status' => 'failed',
-                        'message' => 'confirm password doesnt match']);
+               ->json(['error' => 'confirm password doesnt match']);
            }
        }
  
