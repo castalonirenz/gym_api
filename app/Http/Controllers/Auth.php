@@ -71,7 +71,7 @@ class Auth extends Controller
                                 return
                                 response()
                                 ->json([
-                                    'success' => 'true',
+                                    'success' => true,
                                     'data' => 'successfully changed',
                                 ]);
                                     }
@@ -79,7 +79,7 @@ class Auth extends Controller
                                 return
                                 response()
                                 ->json([
-                                    'success' => 'false',
+                                    'success' => false,
                                     'message' => 'Cannot change password new password is same with the old one'
                                 ]);
                                     }
@@ -88,7 +88,7 @@ class Auth extends Controller
                                  return
                                 response()
                                 ->json([
-                                    'success' => 'false',
+                                    'success' => false,
                                     'message' => 'Wrong password!'
                                 ]);
                 }
@@ -96,7 +96,9 @@ class Auth extends Controller
            else{
                return 
                response()
-               ->json(['error' => 'confirm password doesnt match']);
+               ->json([
+                   'success' => false,
+                   'message' => 'confirm password doesnt match']);
            }
        }
  
