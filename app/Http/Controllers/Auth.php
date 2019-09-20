@@ -74,7 +74,7 @@ class Auth extends Controller
                                 response()
                                 ->json([
                                     'success' => true,
-                                    'data' => 'successfully changed',
+                                    'message' => 'successfully changed',
                                 ]);
                                     }
                                     else{
