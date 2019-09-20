@@ -91,7 +91,7 @@ class Auth extends Controller
                                 response()
                                 ->json([
                                     'success' => false,
-                                    'message' => 'Check your username/password befure updating your new password!'
+                                    'message' => 'Check your username/password before updating your new password!'
                                 ]);
                 }
            }
